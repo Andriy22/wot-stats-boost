@@ -1,0 +1,11 @@
+{
+	"importOrder": ["^react(.*)", "next-ui/react/(.*)", "@/(.*)", "^[./]"],
+	"importOrderSeparation": true,
+	"importOrderSortSpecifiers": true,
+	"useTabs": true,
+	"emi": false,
+	"jsxSingleQuote": true,
+	"singleQuote": true,
+	"arrowParens": "avoid",
+	"plugins": ["@trivago/prettier-plugin-sort-imports"]
+}
