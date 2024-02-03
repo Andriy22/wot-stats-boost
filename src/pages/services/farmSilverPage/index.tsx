@@ -6,7 +6,7 @@ export default function FarmSilverPage() {
 	return (
 		<div className='container'>
 			<ServiceHeader title='Farm Silver' />
-			<div className='grid container items-start xl:grid-cols-2 grid-cols-1 gap-4 my-5'>
+			<div className='grid items-start xl:grid-cols-2 grid-cols-1 gap-4 my-5'>
 				<div className='w-full flex md:justify-center justify-start flex-col'>
 					<FarmSilverCalculator />
 				</div>

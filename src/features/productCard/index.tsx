@@ -20,14 +20,17 @@ export default function ProductCard({ title, img, url }: IProps) {
 			isFooterBlurred
 			className='group items-center overflow-hidden h-60 w-60 bg-white/10 rounded focus:outline-none focus:ring'
 		>
-			<Image
-				removeWrapper
-				alt='Relaxing app background'
-				height={200}
-				width={200}
-				className='z-0 object-cover'
-				src={img}
-			/>
+			<div className='flex h-full w-full items-center justify-center'>
+				<Image
+					removeWrapper
+					alt='Relaxing app background'
+					height={200}
+					width={200}
+					className='z-0 object-cover'
+					src={img}
+				/>
+			</div>
+
 			<CardFooter className='absolute bg-black/40 bottom-0 z-10 border-default-600 dark:border-default-100'>
 				<div className='flex flex-grow gap-2 items-center'>
 					<div className='flex flex-col mx-3'>

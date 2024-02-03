@@ -1,18 +1,16 @@
 import ServiceHeader from '../../../features/serviceHeader';
 import TotalCard from '../../../features/totalCard';
-import IndividualTaskCard from './ui/individualTaskCard.tsx';
+import IndividualTaskFirstStage from './ui/individualTaskFirstStage.tsx';
 
 const IndividualTasksPage = () => {
 	return (
 		<div className='container'>
-			<ServiceHeader title='Individual Tasks' />
-			<div className='grid container items-start xl:grid-cols-2 grid-cols-1 gap-4 my-5'>
-				<div className='w-full flex md:justify-center justify-start flex-col'>
-					<IndividualTaskCard
-						withHonors={true}
-						isSelected={true}
-						title='Task 1'
-					/>
+			<ServiceHeader title='Personal Missions 1.0' />
+			<div className='grid items-start xl:grid-cols-3 grid-cols-1 gap-4 my-5'>
+				<div className='w-full col-span-2 flex justify-start flex-col'>
+					<div>
+						<IndividualTaskFirstStage />
+					</div>
 				</div>
 				<div className='w-full justify-end'>
 					<TotalCard />

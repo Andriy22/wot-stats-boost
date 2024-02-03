@@ -1,19 +1,59 @@
 import { Card, CardBody, Checkbox } from '@nextui-org/react';
 
+import { usePersonalMissionsStore } from '../../../../app/stores/personalMissionsStore.ts';
+import { IPersonalMission } from '../../../../shared/types/personal-missions';
+
 interface IProps {
-	title: string;
-	isSelected: boolean;
-	withHonors: boolean;
+	mission: IPersonalMission;
 }
 
-const IndividualTaskCard = ({ title, isSelected, withHonors }: IProps) => {
+const IndividualTaskCard = ({ mission }: IProps) => {
+	const { setMission } = usePersonalMissionsStore();
+
+	const handleChange = (selected: boolean) => {
+		const copiedMission = { ...mission };
+
+		copiedMission.isSelected = selected;
+
+		setMission(copiedMission);
+	};
+
+	const handleHonorChange = (selected: boolean) => {
+		const copiedMission = { ...mission };
+
+		if (selected) {
+			copiedMission.isSelected = selected;
+		}
+
+		copiedMission.withHonors = selected;
+
+		setMission(copiedMission);
+	};
+
 	return (
 		<Card
-			className={`w-36 h-20 rounded-b-xl ${isSelected ? 'bg-opacity-30 bg-stripe-gradient' : ''} ${isSelected ? (withHonors ? 'bg-yellow-300' : 'bg-primary') : ''}`}
+			className={`w-36 h-24 rounded-b-xl ${mission.title ? 'bg-opacity-30 bg-stripe-gradient' : ''} ${mission.isSelected ? (mission.withHonors ? 'bg-yellow-300' : 'bg-primary') : ''}`}
 		>
 			<CardBody className='backdrop-blur-2xl'>
-				<Checkbox className='justify-start'>{title}</Checkbox>
-				<Checkbox color={'warning'} className='justify-end pt-5' size='sm'>
+				<Checkbox
+					className='justify-start'
+					onValueChange={handleChange}
+					isSelected={mission.isSelected}
+					defaultSelected={mission.isSelected}
+				>
+					<div>
+						<p>{mission.title}</p>
+						<p className={'text-xs'}> {mission.price.toFixed(2)}$</p>
+					</div>
+				</Checkbox>
+				<Checkbox
+					color={'warning'}
+					onValueChange={handleHonorChange}
+					isSelected={mission.withHonors}
+					defaultSelected={mission.withHonors}
+					className='justify-end pt-5'
+					size='sm'
+				>
 					with honors
 				</Checkbox>
 			</CardBody>

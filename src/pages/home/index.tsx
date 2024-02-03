@@ -6,18 +6,18 @@ export default function HomePage() {
 		<div className='grid container items-center xl:grid-cols-5 sm:grid-cols-2 grid-cols-1 gap-4 my-10'>
 			<ProductCard
 				title='Farm Silver'
-				img='https://wot.raisen.ru/img/gun.svg'
+				img='https://wot.raisen.ru/img/coins.svg'
 				url={RouteName.FARM_SILVER}
 			/>
 			<ProductCard
-				title='Test'
-				img='https://wot.raisen.ru/img/gun.svg'
+				title='Personal missions 1.0'
+				img='https://wot.raisen.ru/img/lbz.svg'
 				url={RouteName.INDIVIDUAL_TASKS}
 			/>
 			<ProductCard
-				title='Test'
-				img='https://wot.raisen.ru/img/gun.svg'
-				url={RouteName.LOGIN}
+				title='Personal missions 2.0'
+				img='https://wot.raisen.ru/img/lbz.svg'
+				url={RouteName.INDIVIDUAL_TASKS}
 			/>
 			<ProductCard
 				title='Test'
