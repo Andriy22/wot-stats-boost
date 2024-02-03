@@ -14,3 +14,8 @@ export interface IPersonalMission {
 	isSelected?: boolean;
 	withHonors?: boolean;
 }
+
+export interface IFilteredMissions {
+	title: string;
+	missions: IPersonalMission[];
+}

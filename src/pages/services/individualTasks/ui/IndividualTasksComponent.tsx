@@ -4,24 +4,26 @@ import { useEffect, useMemo, useState } from 'react';
 
 import { useOrderStore } from '../../../../app/stores/orderStore.ts';
 import { usePersonalMissionsStore } from '../../../../app/stores/personalMissionsStore.ts';
+import { IPersonalMissionsTabs } from '../../../../shared/types/personal-missions';
 import {
+	filterMissions,
 	missions,
-	personalMissionsFirstStageTabs,
-	personalMissionsFirstStageTabsKeys,
-	personalMissionsTanksTypes,
 } from '../constants/personalMissions-constants.ts';
 import PersonalMissionsList from './personalMissionsList.tsx';
 
-const IndividualTaskFirstStage = () => {
+interface IProps {
+	initialTabKey: number;
+	tabs: IPersonalMissionsTabs[];
+}
+
+const IndividualTasksComponent = ({ initialTabKey, tabs }: IProps) => {
 	const { selectedMissions, reset } = usePersonalMissionsStore();
 	const setOrderDetails = useOrderStore(state => state.setOrderDetails);
 
-	const tabs = useMemo(() => personalMissionsFirstStageTabs, []);
 	const personalMissions = useMemo(
 		() =>
 			missions.map(mission => {
 				const selectedMission = selectedMissions.find(x => x.id === mission.id);
-
 				return {
 					...mission,
 					isSelected: selectedMission?.isSelected ?? false,
@@ -31,9 +33,7 @@ const IndividualTaskFirstStage = () => {
 		[missions, selectedMissions],
 	);
 
-	const [currentTab, setCurrentTab] = useState(
-		personalMissionsFirstStageTabsKeys.Stug,
-	);
+	const [currentTab, setCurrentTab] = useState(initialTabKey);
 
 	useEffect(() => {
 		const data = JSON.stringify(selectedMissions);
@@ -41,7 +41,6 @@ const IndividualTaskFirstStage = () => {
 			(acc, currentValue) => acc + currentValue.price,
 			0,
 		);
-
 		setOrderDetails({ details: data, total: totalSum });
 	}, [selectedMissions]);
 
@@ -50,6 +49,7 @@ const IndividualTaskFirstStage = () => {
 			reset();
 		};
 	}, []);
+
 	return (
 		<div className='flex w-full flex-col'>
 			<Tabs
@@ -57,9 +57,7 @@ const IndividualTaskFirstStage = () => {
 				color='primary'
 				defaultSelectedKey={currentTab}
 				onSelectionChange={e => setCurrentTab(+e)}
-				classNames={{
-					cursor: 'w-full',
-				}}
+				classNames={{ cursor: 'w-full' }}
 			>
 				{tabs.map(tab => (
 					<Tab
@@ -73,55 +71,15 @@ const IndividualTaskFirstStage = () => {
 							</div>
 						}
 					>
-						{/*
-						TODO:
-						MAKE IT USING MAP INSTEAD OF HARD CODE
-						*/}
-
-						<PersonalMissionsList
-							missions={personalMissions.filter(
-								x =>
-									x.type === personalMissionsTanksTypes.LT &&
-									x.tank === currentTab,
-							)}
-							title={'LT'}
-						/>
-						<Divider className={'my-3'}></Divider>
-						<PersonalMissionsList
-							missions={personalMissions.filter(
-								x =>
-									x.type === personalMissionsTanksTypes.MT &&
-									x.tank === currentTab,
-							)}
-							title={'MT'}
-						/>
-						<Divider className={'my-3'}></Divider>
-						<PersonalMissionsList
-							missions={personalMissions.filter(
-								x =>
-									x.type === personalMissionsTanksTypes.HT &&
-									x.tank === currentTab,
-							)}
-							title={'HT'}
-						/>
-						<Divider className={'my-3'}></Divider>
-						<PersonalMissionsList
-							missions={personalMissions.filter(
-								x =>
-									x.type === personalMissionsTanksTypes.TD &&
-									x.tank === currentTab,
-							)}
-							title={'TD'}
-						/>
-						<Divider className={'my-3'}></Divider>
-						<PersonalMissionsList
-							missions={personalMissions.filter(
-								x =>
-									x.type === personalMissionsTanksTypes.SPG &&
-									x.tank === currentTab,
-							)}
-							title={'SPG'}
-						/>
+						{filterMissions(personalMissions, currentTab).map(item => (
+							<div key={item.title}>
+								<PersonalMissionsList
+									missions={item.missions}
+									title={item.title}
+								/>
+								<Divider className={'my-3'}></Divider>
+							</div>
+						))}
 					</Tab>
 				))}
 			</Tabs>
@@ -129,4 +87,4 @@ const IndividualTaskFirstStage = () => {
 	);
 };
 
-export default IndividualTaskFirstStage;
+export default IndividualTasksComponent;

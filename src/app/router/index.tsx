@@ -4,11 +4,13 @@ import HomePage from '../../pages/home';
 import LoginPage from '../../pages/login';
 import NotFoundPage from '../../pages/notFoundPage';
 import FarmSilverPage from '../../pages/services/farmSilverPage';
-import IndividualTasks from '../../pages/services/individualTasks';
+import PersonalMissionsFirst from '../../pages/services/individualTasks/ui/personalMissionsFirst.tsx';
+import PersonalMissionsSecond from '../../pages/services/individualTasks/ui/personalMissionsSecond.tsx';
 import { IRoute, RouteName } from '../../shared/types/router';
-import { SuspenseLayout } from '../../shared/ui/layouts/SuspenseLayout';
+import { SuspenseLayout } from '../../shared/ui/layouts';
 
-const { HOME, LOGIN, FARM_SILVER, INDIVIDUAL_TASKS } = RouteName;
+const { HOME, LOGIN, FARM_SILVER, PERSONAL_MISSIONS_1, PERSONAL_MISSIONS_2 } =
+	RouteName;
 
 const routes: IRoute[] = [
 	{
@@ -24,8 +26,12 @@ const routes: IRoute[] = [
 		component: FarmSilverPage,
 	},
 	{
-		path: INDIVIDUAL_TASKS,
-		component: IndividualTasks,
+		path: PERSONAL_MISSIONS_1,
+		component: PersonalMissionsFirst,
+	},
+	{
+		path: PERSONAL_MISSIONS_2,
+		component: PersonalMissionsSecond,
 	},
 ];
 

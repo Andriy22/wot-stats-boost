@@ -12,12 +12,12 @@ export default function HomePage() {
 			<ProductCard
 				title='Personal missions 1.0'
 				img='https://wot.raisen.ru/img/lbz.svg'
-				url={RouteName.INDIVIDUAL_TASKS}
+				url={RouteName.PERSONAL_MISSIONS_1}
 			/>
 			<ProductCard
 				title='Personal missions 2.0'
 				img='https://wot.raisen.ru/img/lbz.svg'
-				url={RouteName.INDIVIDUAL_TASKS}
+				url={RouteName.PERSONAL_MISSIONS_2}
 			/>
 			<ProductCard
 				title='Test'
