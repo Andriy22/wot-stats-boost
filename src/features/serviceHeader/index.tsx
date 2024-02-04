@@ -5,7 +5,7 @@ interface IProps {
 	size?: number | string;
 }
 
-export default function ServiceHeader({ title, size = '5xl' }: IProps) {
+export default function ServiceHeader({ title, size = '2xl' }: IProps) {
 	return (
 		<div className='w-fit'>
 			<p className={`text-${size}`}>{title}</p>

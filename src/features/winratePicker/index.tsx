@@ -1,13 +1,15 @@
 import { Radio, RadioGroup } from '@nextui-org/react';
 
 interface IProps {
-	onChange: Function;
+	onChange: (e: number) => void;
+	disabled?: boolean;
 }
 
-export default function WinRatePicker({ onChange }: IProps) {
+export default function WinRatePicker({ onChange, disabled = false }: IProps) {
 	return (
 		<RadioGroup
-			onChange={e => onChange(e.target.value)}
+			isDisabled={disabled}
+			onChange={e => onChange(+e.target.value)}
 			label='Укажите желаемый гарантированный процент побед'
 			defaultValue='55'
 		>

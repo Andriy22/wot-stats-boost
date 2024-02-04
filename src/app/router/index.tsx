@@ -6,11 +6,18 @@ import NotFoundPage from '../../pages/notFoundPage';
 import FarmSilverPage from '../../pages/services/farmSilverPage';
 import PersonalMissionsFirst from '../../pages/services/individualTasks/ui/personalMissionsFirst.tsx';
 import PersonalMissionsSecond from '../../pages/services/individualTasks/ui/personalMissionsSecond.tsx';
+import MarksOfExcellence from '../../pages/services/marksOfExcellence';
 import { IRoute, RouteName } from '../../shared/types/router';
 import { SuspenseLayout } from '../../shared/ui/layouts';
 
-const { HOME, LOGIN, FARM_SILVER, PERSONAL_MISSIONS_1, PERSONAL_MISSIONS_2 } =
-	RouteName;
+const {
+	HOME,
+	LOGIN,
+	FARM_SILVER,
+	PERSONAL_MISSIONS_1,
+	PERSONAL_MISSIONS_2,
+	MARKS_OF_EXCELLENCE,
+} = RouteName;
 
 const routes: IRoute[] = [
 	{
@@ -32,6 +39,10 @@ const routes: IRoute[] = [
 	{
 		path: PERSONAL_MISSIONS_2,
 		component: PersonalMissionsSecond,
+	},
+	{
+		path: MARKS_OF_EXCELLENCE,
+		component: MarksOfExcellence,
 	},
 ];
 

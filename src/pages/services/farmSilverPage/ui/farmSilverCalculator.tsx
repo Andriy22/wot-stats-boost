@@ -49,12 +49,8 @@ export default function FarmSilverCalculator() {
 				className='w-full mt-5'
 				defaultValue={amount}
 				minValue={1}
+				maxValue={100}
 				onChange={e => setAmount(+e)}
-				classNames={{
-					base: 'max-w-md gap-3',
-					track: 'border-s-primary-100',
-					filler: 'bg-gradient-to-r from-primary-100 to-primary-500',
-				}}
 				renderThumb={props => (
 					<div
 						{...props}
@@ -67,7 +63,7 @@ export default function FarmSilverCalculator() {
 			/>
 			<Checkbox
 				isSelected={useReserves}
-				onChange={e => setUseReserves(!!e.target.checked)}
+				onChange={e => setUseReserves(e.target.checked)}
 				className='mt-5 w-full'
 			>
 				В наличии личные резервы на +50% к серебру (-35%)

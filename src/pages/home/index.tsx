@@ -20,9 +20,9 @@ export default function HomePage() {
 				url={RouteName.PERSONAL_MISSIONS_2}
 			/>
 			<ProductCard
-				title='Test'
+				title='Marks Of Excellence'
 				img='https://wot.raisen.ru/img/gun.svg'
-				url={RouteName.LOGIN}
+				url={RouteName.MARKS_OF_EXCELLENCE}
 			/>
 			<ProductCard
 				title='Test'
