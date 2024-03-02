@@ -1,6 +1,7 @@
 import ServiceHeader from '../../../features/serviceHeader';
 import TotalCard from '../../../features/totalCard';
 import FarmSilverCalculator from './ui/farmSilverCalculator';
+import FarmSilverFAQ from './ui/farmSilverFAQ.tsx';
 
 export default function FarmSilverPage() {
 	return (
@@ -14,10 +15,10 @@ export default function FarmSilverPage() {
 					<TotalCard />
 				</div>
 			</div>
-			{/*<ServiceHeader title='FAQ' />*/}
-			{/*<div className='mt-5 mx-0'>*/}
-			{/*	<FarmSilverFAQ />*/}
-			{/*</div>*/}
+			<ServiceHeader title='FAQ' />
+			<div className='mt-5 mx-0'>
+				<FarmSilverFAQ />
+			</div>
 		</div>
 	);
 }
