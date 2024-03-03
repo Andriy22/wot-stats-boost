@@ -4,80 +4,90 @@ import { useEffect, useState } from 'react';
 
 import { useOrderStore } from '../../../../app/stores/orderStore';
 import WinRatePicker from '../../../../features/winratePicker';
-import { getPercentByWinRate } from '../../../../shared/utils/winRatePercentCalculator';
+import { getPercentageIncreaseBasedOnWinRate } from '../../../../shared/utils/winRatePercentCalculator';
 import {
 	farmSilverPrice,
 	farmSilverSliderMarks,
 } from '../constants/farmSilver-constants';
 
 export default function FarmSilverCalculator() {
-	const [amount, setAmount] = useState<number>(1);
-	const [useReserves, setUseReserves] = useState<boolean>(false);
-	const [isOneTank, setIsOneTank] = useState<boolean>(true);
-	const [winRate, setWinRate] = useState<number>(50);
+	const [silverAmount, setSilverAmount] = useState(1); // Amount of silver to farm
+	const [usePersonalReserves, setUsePersonalReserves] = useState(false); // State for using personal reserves
+	const [hasMultiplePremiumTanks, setHasMultiplePremiumTanks] = useState(true); // User has multiple recommended premium tanks
+	const [desiredWinRate, setDesiredWinRate] = useState(50); // Desired win rate percentage
 
-	const setOrderDetails = useOrderStore(state => state.setOrderDetails);
+	const updateOrderDetails = useOrderStore(state => state.setOrderDetails);
 
 	useEffect(() => {
-		const details = { amount, useReserves, isOneTank, winRate };
+		const orderDetails = {
+			silverAmount,
+			usePersonalReserves,
+			hasMultiplePremiumTanks,
+			desiredWinRate,
+		};
 
-		let sum = farmSilverPrice * amount;
+		let totalPrice = farmSilverPrice * silverAmount;
+		let priceAdjustmentPercentage =
+			100 + getPercentageIncreaseBasedOnWinRate(desiredWinRate);
 
-		let percent = 100 + getPercentByWinRate(winRate);
-
-		if (useReserves) {
-			percent = percent - 35;
+		if (usePersonalReserves) {
+			priceAdjustmentPercentage -= 35; // Applying discount for using personal reserves
 		}
 
-		if (!isOneTank) {
-			percent = percent - 5;
+		if (!hasMultiplePremiumTanks) {
+			priceAdjustmentPercentage -= 5; // Applying discount for having multiple premium tanks
 		}
 
-		sum = sum * (percent / 100);
+		totalPrice *= priceAdjustmentPercentage / 100;
 
-		setOrderDetails({
-			details: JSON.stringify(details),
-			total: +sum.toFixed(2),
+		updateOrderDetails({
+			details: JSON.stringify(orderDetails),
+			total: +totalPrice.toFixed(2),
 		});
-	}, [amount, useReserves, isOneTank, winRate]);
+	}, [
+		silverAmount,
+		usePersonalReserves,
+		hasMultiplePremiumTanks,
+		desiredWinRate,
+	]);
 
 	return (
 		<>
 			<Slider
 				size='sm'
-				label='Amount of silver: '
+				label='Amount of silver (millions): '
 				className='w-full mt-5'
-				defaultValue={amount}
+				defaultValue={silverAmount}
 				minValue={1}
+				step={1}
 				maxValue={100}
-				onChange={e => setAmount(+e)}
+				onChange={e => setSilverAmount(+e)}
 				renderThumb={props => (
-					<div
-						{...props}
-						className='group p-1 top-1/2 bg-background border-small border-default-200 dark:border-default-400/50 shadow-medium rounded-full cursor-grab data-[dragging=true]:cursor-grabbing'
-					>
-						<span className='transition-transform bg-gradient-to-br shadow-small from-primary-100 to-primary-500 rounded-full w-5 h-5 block group-data-[dragging=true]:scale-80' />
+					<div {...props} className='relative flex items-center justify-center'>
+						<div className='group p-1 bg-gradient-to-r from-green-400 to-blue-500 border border-gray-200 dark:border-gray-400/50 shadow-md rounded-full cursor-grab active:cursor-grabbing'>
+							<span className='block w-5 h-5 bg-white rounded-full shadow-sm' />
+						</div>
 					</div>
 				)}
 				marks={farmSilverSliderMarks}
 			/>
 			<Checkbox
-				isSelected={useReserves}
-				onChange={e => setUseReserves(e.target.checked)}
+				isSelected={usePersonalReserves}
+				onChange={e => setUsePersonalReserves(e.target.checked)}
 				className='mt-5 w-full'
 			>
-				В наличии личные резервы на +50% к серебру (-35%)
+				Have personal reserves for +50% silver (-35% discount)
 			</Checkbox>
 			<Checkbox
 				defaultSelected
 				className='mt-5 w-full'
-				isSelected={!isOneTank}
-				onChange={e => setIsOneTank(!e.target.checked)}
+				isSelected={!hasMultiplePremiumTanks}
+				onChange={e => setHasMultiplePremiumTanks(!e.target.checked)}
 			>
-				У меня есть минимум 2 премиум танка 8 уровня из рекомендуемых (-5%)
+				I have at least 2 recommended premium tanks of tier 8 (-5% discount)
 			</Checkbox>
 			<div className='mt-5 w-full'>
-				<WinRatePicker onChange={(e: number) => setWinRate(+e)} />
+				<WinRatePicker onChange={e => setDesiredWinRate(+e)} />
 			</div>
 		</>
 	);

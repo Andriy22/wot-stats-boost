@@ -37,7 +37,7 @@ export default function NavBar() {
 	return (
 		<>
 			<Navbar onMenuOpenChange={setIsMenuOpen}>
-				<NavbarContent>
+				<NavbarContent className='bg-transparent'>
 					<NavbarMenuToggle
 						aria-label={isMenuOpen ? 'Close menu' : 'Open menu'}
 						className='sm:hidden'
@@ -53,7 +53,7 @@ export default function NavBar() {
 				</NavbarContent>
 
 				<NavbarContent
-					className='hidden backdrop-blur sm:flex gap-4'
+					className='hidden bg-transparent sm:flex gap-4'
 					justify='end'
 				>
 					<NavbarItem>
@@ -67,16 +67,16 @@ export default function NavBar() {
 					</NavbarItem>
 					<NavbarItem>
 						<Link
-							className='cursor-pointer'
+							className='cursor-pointer backdrop-blur-0'
 							color={`${pathname !== RouteName.HOME ? 'primary' : 'foreground'}`}
 							onClick={() => navigate(RouteName.HOME)}
 						>
 							Home
 						</Link>
 					</NavbarItem>
-					<NavbarItem>
+					<NavbarItem className='backdrop-blur'>
 						<Link
-							className='cursor-pointer'
+							className='cursor-pointe r'
 							color={`${pathname !== RouteName.HOME ? 'primary' : 'foreground'}`}
 							onClick={() => navigate(RouteName.HOME)}
 						>

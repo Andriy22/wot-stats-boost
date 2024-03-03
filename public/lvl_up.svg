@@ -1,0 +1,16 @@
+<svg id="Слой_1" data-name="Слой 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 417.42 459.08">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #fff;
+      }
+    </style>
+  </defs>
+  <title>lvl_up</title>
+  <g>
+    <path class="cls-1" d="M83.5,425.5v-212h70v212Zm50-20V266h-30V405.5Zm0-159.5V233.5h-30V246Z" transform="translate(-29.25 -20.33)"/>
+    <path class="cls-1" d="M190,426V146h70V426Zm50-20V197H210V406Zm0-229V166H210v11Z" transform="translate(-29.25 -20.33)"/>
+    <path class="cls-1" d="M297,429V74h70V429Zm50-20V125H317V409Zm0-304V94H317v11Z" transform="translate(-29.25 -20.33)"/>
+    <polygon class="cls-1" points="379.75 447.67 11.75 447.67 11.75 37.67 0 37.67 21.75 0 43.5 37.67 31.75 37.67 31.75 427.67 379.75 427.67 379.75 415.59 417.42 437.33 379.75 459.08 379.75 447.67"/>
+  </g>
+</svg>

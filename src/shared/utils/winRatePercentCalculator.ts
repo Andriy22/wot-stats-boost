@@ -1,4 +1,4 @@
-export const getPercentByWinRate = (winRate: number) => {
+export const getPercentageIncreaseBasedOnWinRate = (winRate: number) => {
 	switch (winRate) {
 		case 50:
 			return 0;

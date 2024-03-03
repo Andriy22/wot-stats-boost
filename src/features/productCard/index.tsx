@@ -18,7 +18,7 @@ export default function ProductCard({ title, img, url }: IProps) {
 	return (
 		<Card
 			isFooterBlurred
-			className='group items-center overflow-hidden h-60 w-60 bg-white/10 rounded focus:outline-none focus:ring'
+			className='group items-center overflow-hidden h-60 w-60 my-5 bg-white/10 rounded focus:outline-none focus:ring'
 		>
 			<div className='flex h-full w-full items-center justify-center'>
 				<Image

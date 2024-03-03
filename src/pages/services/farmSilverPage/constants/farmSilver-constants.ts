@@ -21,4 +21,4 @@ export const farmSilverSliderMarks = [
 	},
 ];
 
-export const farmSilverPrice = 1;
+export const farmSilverPrice = 4;

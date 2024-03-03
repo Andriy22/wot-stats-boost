@@ -10,7 +10,7 @@ import {
 	tankTypes,
 } from '../../../../shared/constants/globalConstants';
 import { mockedTanks } from '../../../../shared/mock';
-import { getPercentByWinRate } from '../../../../shared/utils/winRatePercentCalculator.ts';
+import { getPercentageIncreaseBasedOnWinRate } from '../../../../shared/utils/winRatePercentCalculator.ts';
 import { marksOfExcellenceSliderMarks } from '../constants/marksOfExcellenceConstants.ts';
 
 
@@ -97,7 +97,7 @@ const MarksOfExcellenceCalculator = () => {
 			tank.secondStage * secondStage +
 			thirdStage * tank.thirdStage;
 
-		const percent = 100 + getPercentByWinRate(winRate);
+		const percent = 100 + getPercentageIncreaseBasedOnWinRate(winRate);
 
 		sum = sum * (percent / 100);
 

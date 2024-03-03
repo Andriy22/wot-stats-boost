@@ -13,103 +13,108 @@ import { useOrderStore } from '../../app/stores/orderStore';
 import { CONTACT_METHODS } from './constants/totalCardConstants';
 
 export default function TotalCard() {
-	const state = useOrderStore(state => state);
+	const {
+		total,
+		isUrgent,
+		setIsUrgent,
+		name,
+		setName,
+		email,
+		setEmail,
+		contactType,
+		setContactType,
+		contactDetails,
+		setContactDetails,
+		comment,
+		setComment,
+	} = useOrderStore(state => state);
+
+	const isOrderButtonDisabled =
+		!name || !email || !contactType || !contactDetails || !comment;
 
 	return (
 		<>
-			<div className='flex justify-center flex-col md:flex-row items-stretch w-full space-y-4 md:space-y-0 md:space-x-6 xl:space-x-8'>
-				<div className='flex flex-col px-4 py-6 md:p-6 xl:p-8 w-full space-y-6'>
-					<h3 className='text-xl dark:text-white font-semibold leading-5 text-gray-800'>
+			<div className='flex flex-col md:flex-row justify-center items-stretch w-full space-y-4 md:space-x-6 xl:space-x-8'>
+				<div className='space-y-6 px-4 py-6 md:p-6 xl:p-8 w-full'>
+					<h3 className='text-xl font-semibold leading-5 text-gray-800 dark:text-white'>
 						Summary
 					</h3>
-					<div className='flex justify-center items-center w-full space-y-4 flex-col border-gray-200 border-b pb-4'>
-						<div className='flex justify-between w-full'>
-							<p className='text-base dark:text-white leading-4 text-gray-800'>
+					<div className='border-b border-gray-200 pb-4 flex flex-col items-center justify-center space-y-4 w-full'>
+						<div className='w-full flex justify-between'>
+							<p className='text-base leading-4 text-gray-800 dark:text-white'>
 								Subtotal
 							</p>
-							<div className='text-base dark:text-gray-300 leading-4 text-gray-600'>
-								<div className='flex justify-between'>
-									<AnimatedNumber
-										transitions={index => ({
-											type: 'spring',
-											duration: index + 0.3,
-										})}
-										animateToNumber={
-											+(state.total * (state.isUrgent ? 1.25 : 1)).toFixed(2)
-										}
-										className='w-auto justify-end'
-										includeComma
-										locale='en'
-									/>
-									<span>$</span>
-								</div>
-							</div>
-						</div>
-						<div className='flex justify-between items-center w-full'>
-							<p className='text-base dark:text-white leading-4 text-gray-800'>
-								Discount
-							</p>
-							<div className='text-base dark:text-gray-300 leading-4 text-gray-600'>
-								<div className='flex justify-between'>
-									-0.00
-									<span>$</span>
-								</div>
-							</div>
-						</div>
-					</div>
-					<div className='flex justify-between items-center w-full'>
-						<p className='text-base dark:text-white font-semibold leading-4 text-gray-800'>
-							Total
-						</p>
-						<div className='text-base dark:text-gray-300 font-semibold leading-4 text-gray-600'>
-							<div className='flex justify-between'>
+							<div className='flex justify-between text-base leading-4 text-gray-600 dark:text-gray-300'>
 								<AnimatedNumber
+									animateToNumber={+(total * (isUrgent ? 1.25 : 1)).toFixed(2)}
+									className='justify-end w-auto'
+									includeComma
+									locale='en'
 									transitions={index => ({
 										type: 'spring',
 										duration: index + 0.3,
 									})}
-									animateToNumber={
-										+(state.total * (state.isUrgent ? 1.25 : 1)).toFixed(2)
-									}
-									className='w-auto justify-end'
-									includeComma
-									locale='en'
 								/>
 								<span>$</span>
 							</div>
 						</div>
+						<div className='w-full flex justify-between items-center'>
+							<p className='text-base leading-4 text-gray-800 dark:text-white'>
+								Discount
+							</p>
+							<div className='text-base leading-4 text-gray-600 dark:text-gray-300'>
+								<span>-0.00$</span>
+							</div>
+						</div>
+					</div>
+					<div className='flex justify-between items-center w-full'>
+						<p className='text-base font-semibold leading-4 text-gray-800 dark:text-white'>
+							Total
+						</p>
+						<div className='flex justify-between text-base font-semibold leading-4 text-gray-600 dark:text-gray-300'>
+							<AnimatedNumber
+								animateToNumber={+(total * (isUrgent ? 1.25 : 1)).toFixed(2)}
+								className='justify-end w-auto'
+								includeComma
+								locale='en'
+								transitions={index => ({
+									type: 'spring',
+									duration: index + 0.3,
+								})}
+							/>
+							<span>$</span>
+						</div>
 					</div>
 					<Checkbox
-						isSelected={state.isUrgent}
-						onChange={e => state.setIsUrgent(!!e.target.checked)}
-						className='mt-5 w-full'
+						isSelected={isUrgent}
+						onChange={e => setIsUrgent(e.target.checked)}
+						className='w-full mt-5'
 					>
-						Срочный заказ (+25%)
+						Urgent Order (+25%)
 					</Checkbox>
 					<Input
 						isRequired
-						type='text'
 						label='Name'
-						value={state.name}
-						onChange={e => state.setName(e.target.value)}
+						value={name}
+						onChange={e => setName(e.target.value)}
 						className='w-full'
 					/>
 					<Input
 						isRequired
 						type='email'
 						label='Email'
-						value={state.email}
-						onChange={e => state.setEmail(e.target.value)}
+						value={email}
+						onChange={e => setEmail(e.target.value)}
 						className='w-full'
 					/>
-					<div className='grid sm:grid-cols-2 gap-4 grid-cols-1'>
+					<div className='grid grid-cols-1 sm:grid-cols-2 gap-4'>
 						<Select
-							label='Contact method'
-							placeholder='Contact method'
-							className='w-full'
-							defaultSelectedKeys={[state.contactType]}
+							label='Contact Method'
+							placeholder='Select a contact method'
+							defaultSelectedKeys={[contactType]}
+							onChange={e => setContactType(e.target.value)}
 							isRequired
-							onChange={e => state.setContactType(e.target.value)}
+							className='w-full'
 						>
 							{CONTACT_METHODS.map(method => (
 								<SelectItem key={method.value} value={method.value}>
@@ -119,39 +124,27 @@ export default function TotalCard() {
 						</Select>
 						<Input
 							isRequired
-							type='type'
-							label={state.contactType}
-							value={state.contactDetails}
-							onChange={e => state.setContactDetails(e.target.value)}
+							label={contactType}
+							value={contactDetails}
+							onChange={e => setContactDetails(e.target.value)}
 							className='w-full'
 						/>
 					</div>
 					<Textarea
 						label='Comment'
-						placeholder='Enter your comment'
-						value={state.comment}
-						onChange={e => state.setComment(e.target.value)}
+						placeholder='Enter your comment here'
+						value={comment}
+						onChange={e => setComment(e.target.value)}
 						className='w-full'
 					/>
-
-					{!state.contactDetails ||
-					!state.details ||
-					!state.contactType ||
-					!state.email ||
-					!state.name ? (
-						<Button
-							color='primary'
-							isDisabled={true}
-							className='w-full'
-							variant='bordered'
-						>
-							MAKE ORDER
-						</Button>
-					) : (
-						<Button color='primary' className='w-full'>
-							MAKE ORDER
-						</Button>
-					)}
+					<Button
+						color='primary'
+						disabled={isOrderButtonDisabled}
+						className='w-full'
+						variant={isOrderButtonDisabled ? 'bordered' : 'flat'}
+					>
+						PLACE ORDER
+					</Button>
 				</div>
 			</div>
 		</>
