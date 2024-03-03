@@ -9,7 +9,7 @@ export default {
 	],
 	theme: {
 		extend: {},
-		
+
 		container: {
 			// you can configure the container to be centered
 			center: true,

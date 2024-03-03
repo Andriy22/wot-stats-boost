@@ -35,6 +35,7 @@ export interface Actions {
 	setContactType: (contactType: string) => void;
 	setContactDetails: (details: string) => void;
 	setComment: (comment: string) => void;
+	reset: () => void;
 }
 
 export const useOrderStore = create<IOrderState & Actions>(set => ({
@@ -69,5 +70,9 @@ export const useOrderStore = create<IOrderState & Actions>(set => ({
 		set((state: IOrderState) => ({
 			...state,
 			isUrgent: isUrgent,
+		})),
+	reset: () =>
+		set(() => ({
+			...initialState,
 		})),
 }));

@@ -10,7 +10,7 @@ import PersonalMissionsFAQ from './personalMissionsFAQ.tsx';
 const PersonalMissionsSecond = () => {
 	return (
 		<div className='container'>
-			<div className='text-white py-8 px-4 rounded-lg shadow-lg'>
+			<div className='py-8 px-4 rounded-lg shadow-lg'>
 				<div className='container mx-auto grid md:grid-cols-3 gap-4 items-center'>
 					<div className='md:col-span-1'>
 						<h2 className='text-3xl font-bold uppercase'>

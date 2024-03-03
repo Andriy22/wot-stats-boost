@@ -21,19 +21,6 @@ export default function NavBar() {
 
 	const { pathname } = useLocation();
 
-	const menuItems = [
-		'Profile',
-		'Dashboard',
-		'Activity',
-		'Analytics',
-		'System',
-		'Deployments',
-		'My Settings',
-		'Team Settings',
-		'Help & Feedback',
-		'Log Out',
-	];
-
 	return (
 		<>
 			<Navbar onMenuOpenChange={setIsMenuOpen}>
@@ -45,7 +32,7 @@ export default function NavBar() {
 					<NavbarBrand>
 						<Link
 							onClick={() => navigate(RouteName.HOME)}
-							className='text-2xl font-thin text-inherit'
+							className='text-2xl cursor-pointer font-thin text-inherit'
 						>
 							Elite-Boost
 						</Link>
@@ -71,7 +58,7 @@ export default function NavBar() {
 							color={`${pathname !== RouteName.HOME ? 'primary' : 'foreground'}`}
 							onClick={() => navigate(RouteName.HOME)}
 						>
-							Home
+							Our works
 						</Link>
 					</NavbarItem>
 					<NavbarItem className='backdrop-blur'>
@@ -80,29 +67,41 @@ export default function NavBar() {
 							color={`${pathname !== RouteName.HOME ? 'primary' : 'foreground'}`}
 							onClick={() => navigate(RouteName.HOME)}
 						>
-							Home
+							Contacts
 						</Link>
 					</NavbarItem>
 				</NavbarContent>
 				<NavbarMenu>
-					{menuItems.map((item, index) => (
-						<NavbarMenuItem key={`${item}-${index}`}>
-							<Link
-								color={
-									index === 2
-										? 'primary'
-										: index === menuItems.length - 1
-											? 'danger'
-											: 'foreground'
-								}
-								className='w-full'
-								href='#'
-								size='lg'
-							>
-								{item}
-							</Link>
-						</NavbarMenuItem>
-					))}
+					<NavbarMenuItem>
+						<Link
+							color={`${pathname === RouteName.HOME ? 'primary' : 'foreground'}`}
+							className='w-full'
+							onClick={() => navigate(RouteName.HOME)}
+							size='lg'
+						>
+							Home
+						</Link>
+					</NavbarMenuItem>
+					<NavbarMenuItem>
+						<Link
+							color={`${pathname === RouteName.HOME ? 'primary' : 'foreground'}`}
+							className='w-full'
+							onClick={() => navigate(RouteName.HOME)}
+							size='lg'
+						>
+							Our works
+						</Link>
+					</NavbarMenuItem>
+					<NavbarMenuItem>
+						<Link
+							color={`${pathname === RouteName.HOME ? 'primary' : 'foreground'}`}
+							className='w-full'
+							onClick={() => navigate(RouteName.HOME)}
+							size='lg'
+						>
+							Contacts
+						</Link>
+					</NavbarMenuItem>
 				</NavbarMenu>
 			</Navbar>
 		</>
